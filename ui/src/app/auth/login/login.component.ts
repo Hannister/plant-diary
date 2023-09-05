@@ -4,6 +4,7 @@ import {
   Validators,
   FormsModule,
   ReactiveFormsModule,
+  FormGroup,
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -19,10 +20,16 @@ import { NgIf } from '@angular/common';
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
+  loginForm!: FormGroup;
   errorMsg = '';
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: this.email,
+      password: this.password,
+    });
+  }
 
   onSubmit() {
     if (this.email.value && this.password.value) {

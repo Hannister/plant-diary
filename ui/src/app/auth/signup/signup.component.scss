@@ -60,6 +60,10 @@
         &:hover {
           background: #f88c32;
         }
+        &:disabled {
+          cursor: default;
+          background-color: rgb(197, 197, 197);
+        }
       }
     }
     .register-link {

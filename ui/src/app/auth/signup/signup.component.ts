@@ -36,7 +36,6 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(1);
     if (this.name.value && this.email.value && this.password.value) {
       this.authService
         .registe(this.name.value, this.email.value, this.password.value)
