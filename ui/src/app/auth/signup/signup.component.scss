@@ -50,7 +50,7 @@
         width: 100%;
         padding: 10px 5px;
         border-radius: 5px;
-        background: #00c67f;
+        background: #fdb433;
         color: white;
         font-weight: 600;
         letter-spacing: 2px;
@@ -58,15 +58,15 @@
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
         &:hover {
-          background: #02ad6f;
+          background: #f88c32;
         }
       }
     }
     .register-link {
-      color: #72d98b;
+      color: #fdb433;
       transition: color 0.3s ease-in-out;
       &:hover {
-        color: #67c57f;
+        color: #f88c32;
       }
     }
   }
@@ -75,7 +75,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #c9dcbb;
+    background-color: #d6edfb;
 
     img {
       width: 60%;
@@ -87,5 +87,5 @@
 
 .error {
   color: rgb(255, 147, 147);
-  font-size: 10px;
+  font-size: 12px;
 }

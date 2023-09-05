@@ -20,6 +20,8 @@ export class InitService {
       // do nothing dont log out
     } else {
       this.authService.logout();
+      console.log(window.location.pathname);
+
       this.router.navigate(['/auth/login']);
     }
   }

@@ -24,6 +24,19 @@ export class AuthService {
       })
     );
   }
+  registe(name: string, email: string, password: string) {
+    // Send a POST request to the server to authenticate the user
+    return this.HTTPService.post('auth/register', {
+      name,
+      email,
+      password,
+    }).pipe(
+      map((response: any) => {
+        const { token } = response;
+        this.setToken(token);
+      })
+    );
+  }
 
   logout(): void {
     this.removeToken();

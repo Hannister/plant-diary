@@ -9,7 +9,6 @@ import { InitService } from './services/init.service';
 export class AppComponent implements OnInit {
   constructor(private initService: InitService) {}
   ngOnInit(): void {
-    this.initService.handleToken();
-
+    // this.initService.handleToken();
   }
 }
