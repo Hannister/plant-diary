@@ -1,0 +1,41 @@
+@import "./../../../scss/variables.scss";
+
+.example-card {
+  max-width: 320px;
+  margin-right: 25px;
+  margin-bottom: 25px;
+
+  .mat-mdc-card-content {
+    min-height: 122px;
+  }
+
+  .plant-name {
+    margin-top: 10px;
+    color: $dark-green;
+  }
+  .plant-nickName {
+    font-weight: 400;
+    font-size: 16px;
+    color: $dark-blue-title;
+  }
+  .plant-family {
+    font-weight: 400;
+    color: grey;
+    font-size: 14px;
+    margin-bottom: 14px;
+    margin-top: 4px;
+  }
+  .req-title {
+    font-weight: 500;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .icons {
+    font-size: 14px;
+    color: $orange;
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+  }
+}

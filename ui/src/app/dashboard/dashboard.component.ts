@@ -1,3 +1,4 @@
+import { IPlant } from 'src/app/interfaces and enums/plant';
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +10,7 @@ import { CreateNewPlantComponent } from './create-new-plant/create-new-plant.com
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  plants = {};
+  plants! : IPlant[];
   userName = '';
   plantsCount = 0;
   constructor(

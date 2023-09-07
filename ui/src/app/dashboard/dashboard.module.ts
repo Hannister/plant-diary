@@ -10,6 +10,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CreateNewPlantComponent } from './create-new-plant/create-new-plant.component';
 import { DashboardComponent } from './dashboard.component';
 import { TopNavigatorComponent } from '../top-navigator/top-navigator.component';
+import { PlantCardComponent } from './plant-card/plant-card.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -24,6 +26,8 @@ import { TopNavigatorComponent } from '../top-navigator/top-navigator.component'
     MatDialogModule,
     TopNavigatorComponent,
     CreateNewPlantComponent,
+    PlantCardComponent,
+    MatIconModule,
   ],
 })
 export class DashboardModule {}

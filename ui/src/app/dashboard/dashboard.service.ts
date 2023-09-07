@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HTTPService } from '../services/http.service';
+import { IPlant } from '../interfaces and enums/plant';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class DashboardService {
     return this.HTTPService.post('plants/uploads', formData);
   }
 
-  createPlant(data: any) {
+  createPlant(data: IPlant) {
     console.log(data);
     return this.HTTPService.post('plants', data);
   }
