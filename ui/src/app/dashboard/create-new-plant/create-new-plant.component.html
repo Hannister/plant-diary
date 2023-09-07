@@ -1,0 +1,161 @@
+<div class="create-plant-container">
+  <h3>
+    <img
+      class="plant-icon"
+      src="../../../assets/plant_8889402.png"
+      alt="plant icon"
+    />
+    Add new plant to your diary:
+  </h3>
+  <form [formGroup]="plantForm">
+    <div class="form-group">
+      <label for="plantName"> Plant name:</label>
+      <input
+        type="text"
+        formControlName="plantName"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['plantName'].errors }"
+      />
+      <div *ngIf="submitted && f['plantName'].errors" class="invalid-feedback">
+        <div *ngIf="f['plantName'].errors['required']">
+          Plant name of the plant is required
+        </div>
+        <div *ngIf="f['plantName'].errors['maxlength']">
+          Plant name c'ant be more than 50 characters
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="plantNickName">
+        Plant nickname
+        <span class="not-required">(not required)</span>:</label
+      >
+      <input
+        type="text"
+        formControlName="plantNickName"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['plantNickName'].errors }"
+      />
+      <div
+        *ngIf="submitted && f['plantNickName'].errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f['plantNickName'].errors['maxlength']">
+          Plant nickName c'ant be more than 50 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="plantFamily">
+        Plant family <span class="not-required">(not required)</span>:</label
+      >
+      <input
+        type="text"
+        formControlName="plantFamily"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['plantFamily'].errors }"
+      />
+      <div
+        *ngIf="submitted && f['plantFamily'].errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f['plantFamily'].errors['required']">Email is required</div>
+        <div *ngIf="f['plantFamily'].errors['maxlength']">
+          Plant nickName c'ant be more than 50 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="light"> Select plant light requirement</label>
+      <select formControlName="light">
+        <option *ngFor="let light of lightRequirement" [value]="light">
+          {{ light | titlecase }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="water"> Plant watering needs:</label>
+      <input
+        type="text"
+        formControlName="water"
+        class="form-control"
+        placeholder="Plant watering needs"
+        [ngClass]="{ 'is-invalid': submitted && f['water'].errors }"
+      />
+      <div *ngIf="submitted && f['water'].errors" class="invalid-feedback">
+        <div *ngIf="f['water'].errors['required']">
+          Plant watering needs are required
+        </div>
+        <div *ngIf="f['water'].errors['maxlength']">
+          Plant watering needs c'ant be more than 50 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="water"> Add plant image:</label>
+
+      <input
+        #fileUpload
+        type="file"
+        id="image"
+        name="image"
+        accept="image/*"
+        formControlName="image"
+        (change)="onFileSelected($event)"
+        required
+        [ngClass]="{ 'is-invalid': submitted && f['image'].errors }"
+        formControlName="image"
+        class="form-control"
+        style="display: none"
+      />
+      <div class="file-upload">
+        {{ fileName || "No file uploaded yet." }}
+
+        <button
+          mat-mini-fab
+          color="primary"
+          class="upload-btn"
+          (click)="fileUpload.click()"
+        >
+          <span>UPLOAD</span>
+        </button>
+      </div>
+
+      <div *ngIf="submitted && f['image'].errors" class="invalid-feedback">
+        <div *ngIf="f['image'].errors['required']">Plant image is required</div>
+      </div>
+    </div>
+    <div class="invalid-feedback" *ngIf="!isImage">
+      Please upload only image files.
+    </div>
+  </form>
+
+  <div class="image-preview" *ngIf="uploadedImage">
+    <p>Preview selected image:</p>
+    <img class="selected-image" [src]="uploadedImage" alt="Uploaded Image" />
+    <a (click)="clearImage(); fileUpload.value = ''"
+      ><mat-icon class="close-icon" fontIcon="close"></mat-icon>Clear image</a
+    >
+  </div>
+
+  <div class="invalid-feedback" *ngIf="errorMsg">
+    {{ errorMsg }}
+  </div>
+
+  <div class="dialog-buttons">
+    <button class="cancel-btn" mat-button (click)="onCancel()">Cancel</button>
+    <button
+      class="add-plant"
+      mat-button
+      [disabled]="plantForm.invalid"
+      (click)="addPlant()"
+    >
+      <loading-icon *ngIf="isLoading"></loading-icon>
+      Add plant
+    </button>
+  </div>
+</div>

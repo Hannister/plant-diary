@@ -17,7 +17,6 @@ export class TokenInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // Retrieve the token from your authentication service or local storage
     const token = localStorage.getItem('access_token');
-
     // Clone the request and add the token to the headers if it exists
     if (token) {
       request = request.clone({

@@ -2,28 +2,21 @@ const jwt = require("jsonwebtoken");
 const { UnauthenticatedError } = require("../errors");
 
 const authenticationMiddleware = async (req, res, next) => {
-    const token = req.header("Authorization");
-    if (!token) {
-        throw new UnauthenticatedError("Unauthorized");
+    // check header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
+        throw new UnauthenticatedError("Authentication invalid");
     }
+    const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, "your-secret-key", (err, user) => {
-        console.log(user);
-        if (err) {
-            throw new UnauthenticatedError("Forbidden");
-        }
-        req.user = user;
+    try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        // attach the user to the job routes
+        req.user = { userId: payload.userId, name: payload.name };
         next();
-    });
-
-    //course code
-    // try {
-    //     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    //     req.user = { userId: payload.userId, name: payload.name };
-    //     next();
-    // } catch (error) {
-    //     throw new UnauthenticatedError("Authentication Invalid");
-    // }
+    } catch (error) {
+        throw new UnauthenticatedError("Authentication invalid");
+    }
 };
 
 module.exports = authenticationMiddleware;

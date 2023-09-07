@@ -31,4 +31,23 @@ body {
 
 button {
   border: none;
+  padding: 10px 5px;
+  border-radius: 5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:disabled {
+    cursor: default;
+    background-color: rgb(197, 197, 197);
+  }
+}
+
+input {
+  border: none;
+  border-bottom: solid 1px #425460;
+  color: #425460;
+  font-size: 14px;
+  outline: none;
 }

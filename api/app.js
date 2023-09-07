@@ -11,12 +11,21 @@ const rateLimiter = require("express-rate-limit");
 const express = require("express");
 const app = express();
 
+const fileUpload = require("express-fileupload");
+// USE V2
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+});
 // connectDB
 const connectDB = require("./db/connect");
 
 // routes
 
 const authRoutes = require("./routes/auth-route");
+const PlantsRoutes = require("./routes/plants-route");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -32,6 +41,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(helmet());
 app.use(cors());
 app.use(xss());
@@ -39,6 +49,7 @@ app.use(xss());
 // routes
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/plants", authMiddleware, PlantsRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

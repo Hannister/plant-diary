@@ -1,2 +1,12 @@
 <top-navigator></top-navigator>
-hello
+<div class="dasboard-container">
+  <h3 class="page-title">hello {{ userName }}</h3>
+  <div *ngIf="plantsCount > 0; else noPlants" class="plants-container">
+    {{ plantsCount }}
+    {{ plants | json }}
+  </div>
+  <ng-template #noPlants>
+    <p>You haven't added any plant yet, to add click here</p>
+    <button class="add-plant" (click)="openDialog()">Add New Plant</button>
+  </ng-template>
+</div>

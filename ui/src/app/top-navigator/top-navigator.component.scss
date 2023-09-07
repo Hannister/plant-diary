@@ -4,5 +4,24 @@
   flex: 1 1 auto;
 }
 .mat-toolbar {
-  background: $dark-green;
+  background: $lime-light-green;
+
+  .logo {
+    display: flex;
+    align-items: flex-end;
+    color: $dark-blue-title;
+    letter-spacing: 1px;
+
+    img {
+      width: 40px;
+      margin-right: 10px;
+    }
+    h3 {
+      margin-top: 10px;
+    }
+  }
+
+  .mat-icon {
+    color: $dark-blue-title;
+  }
 }

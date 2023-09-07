@@ -1,0 +1,143 @@
+@import "./../../../scss/variables.scss";
+
+.create-plant-container {
+  width: 60vw;
+  height: 80%;
+  padding: 25px;
+
+  h3 {
+    color: $dark-blue-title;
+    font-weight: 500;
+  }
+  .plant-icon {
+    height: 40px;
+  }
+
+  form {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    font-size: 16px;
+
+    .form-group {
+      margin-right: 15px;
+      display: flex;
+      width: 100%;
+      margin-top: 34px;
+
+      .not-required {
+        font-size: 10px;
+        color: grey;
+      }
+
+      input {
+        width: 100%;
+      }
+      label {
+        margin-right: 5px;
+        white-space: nowrap;
+      }
+
+      select {
+        border: none;
+        border-bottom: solid 1px #425460;
+        color: #425460;
+        font-size: 14px;
+        outline: none;
+      }
+    }
+
+    .file-upload {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border: solid 1px #00000061;
+      border-radius: 38px;
+      line-height: 33px;
+      margin-left: 4px;
+      height: 34px;
+      position: relative;
+      top: -6px;
+      font-size: 14px;
+      color: grey;
+      padding-left: 15px;
+      font-family: "Open Sans", sans-serif;
+      font-family: "Righteous", cursive;
+      font-family: "Roboto", sans-serif;
+
+      .upload-btn {
+        color: white;
+        border-top-right-radius: 38px;
+        border-bottom-right-radius: 38px;
+        padding: 5px 25px;
+        background-color: $green;
+        padding: 5px 10px;
+        letter-spacing: 1px;
+
+        &:hover {
+          background-color: $dark-green;
+        }
+      }
+    }
+  }
+
+  .image-preview {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14px;
+
+    .selected-image {
+      width: 20%;
+      margin: 10px 0;
+    }
+    a {
+      width: 20%;
+
+      text-align: center;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      line-height: 15px;
+      &:hover {
+        color: rgb(255, 147, 147);
+      }
+    }
+    .close-icon {
+      font-size: 14px;
+      &:hover {
+        color: rgb(255, 147, 147);
+      }
+    }
+  }
+
+  .dialog-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    .cancel-btn {
+      margin-right: 10px;
+    }
+    .add-plant {
+      background-color: $green;
+      cursor: pointer;
+      color: white;
+      &:disabled {
+        cursor: default;
+        background-color: rgb(197, 197, 197);
+      }
+      // &:hover {
+      //   background-color: $dark-green;
+      // }
+    }
+  }
+}
+.invalid-feedback {
+  color: rgb(255, 147, 147);
+  font-size: 12px;
+}
