@@ -1,4 +1,23 @@
 <mat-card class="example-card">
+  <div class="dropdown-menu">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="icon-button with a menu"
+    >
+      <mat-icon class="menu-icons">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon class="menu-icons">edit</mat-icon>
+        <span>Edit plant</span>
+      </button>
+      <button mat-menu-item (click)="onDeletePlant()">
+        <mat-icon class="menu-icons">delete</mat-icon>
+        <span>Delete plant</span>
+      </button>
+    </mat-menu>
+  </div>
   <img mat-card-image src="{{ plant.image }}" alt="Photo of a Shiba Inu" />
   <mat-card-content>
     <h3 class="plant-name">

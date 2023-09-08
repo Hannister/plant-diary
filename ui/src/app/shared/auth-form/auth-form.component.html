@@ -74,7 +74,11 @@
           </div>
         </div>
 
-        <button [ngClass]="isRegisterForm ? 'register-button' : 'login-button'" type="submit" [disabled]="loginForm.invalid" >
+        <button
+          [ngClass]="isRegisterForm ? 'register-button' : 'login-button'"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
           {{ title }}
         </button>
       </form>
@@ -99,7 +103,7 @@
       {{ errorMsg }}
     </div>
   </div>
-  <div class="right-container">
+  <div class="right-container" [ngClass]="{ blue: isRegisterForm }">
     <img
       [src]="
         isRegisterForm

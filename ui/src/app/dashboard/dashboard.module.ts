@@ -12,6 +12,8 @@ import { DashboardComponent } from './dashboard.component';
 import { TopNavigatorComponent } from '../top-navigator/top-navigator.component';
 import { PlantCardComponent } from './plant-card/plant-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import { LoadingIconModule } from '../shared/loading-icon/loading-icon.module';
+;
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -28,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     CreateNewPlantComponent,
     PlantCardComponent,
     MatIconModule,
+    LoadingIconModule
   ],
 })
 export class DashboardModule {}

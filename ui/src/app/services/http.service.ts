@@ -13,6 +13,9 @@ export class HTTPService {
   post(url: string, body: any) {
     return this.http.post(`${this.baseUrl}/${url}`, body);
   }
+  delete(url: string) {
+    return this.http.delete(`${this.baseUrl}/${url}`);
+  }
   postImage(url: string, body: any) {
     return this.http.post(`${this.baseUrl}/${url}`, body, {
       reportProgress: true,

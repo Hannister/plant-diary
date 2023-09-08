@@ -16,9 +16,9 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { LightRequirement } from 'src/app/interfaces and enums/light-requirement.enum';
-import { Subscription, finalize, map } from 'rxjs';
-import { DashboardService } from '../dashboard.service';
+import { Subscription } from 'rxjs';
 import { LoadingIconModule } from 'src/app/shared/loading-icon/loading-icon.module';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'create-new-plant',
@@ -50,7 +50,7 @@ export class CreateNewPlantComponent implements OnInit {
   lightRequirement = Object.values(LightRequirement);
   fileName = '';
   uploadSub!: Subscription | null;
-  isImage = true;
+  isImage = '';
   uploadedImage!: string;
   uploadedObj!: any;
   errorMsg = '';
@@ -80,18 +80,22 @@ export class CreateNewPlantComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
+    console.log(file);
+    if (file && file.type.startsWith('image/') && file.size <= 2000000) {
       this.uploadedObj = event.target.files[0];
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.uploadedImage = e.target.result;
       };
       reader.readAsDataURL(file);
-
       this.fileName = file.name;
+      this.isImage = '';
     } else {
-      // Not an image
-      this.isImage = false;
+      this.uploadedImage = '';
+      this.isImage =
+        file.size > 2000000
+          ? 'Please upload image size 2MB or lass.'
+          : 'Please upload only image files.';
     }
   }
 
@@ -103,10 +107,6 @@ export class CreateNewPlantComponent implements OnInit {
 
   cancelUpload() {
     this.uploadSub?.unsubscribe();
-    this.reset();
-  }
-
-  reset() {
     this.uploadSub = null;
   }
 
@@ -115,32 +115,37 @@ export class CreateNewPlantComponent implements OnInit {
   }
 
   addPlant(): void {
-    if (this.uploadedObj) {
+    if (this.uploadedObj && this.plantForm.valid) {
       this.plantForm.controls['image'] = this.uploadedObj;
-    }
-    if (this.plantForm.valid) {
-      this.isLoading = true;
-      this.submitted = true;
-      const file: any = this.plantForm.controls['image'];
-      const formData = new FormData();
-      formData.append('image', file);
-      this.isImage = true;
-
-      this.dashboardService.postImage(formData).subscribe({
+      this.addPlantImage().subscribe({
         next: (response: any) => {
           this.plantForm.value.image = response.image.src;
-          this.dashboardService.createPlant(this.plantForm.value).subscribe({
-            next: (response: any) => {
-              this.isLoading = false;
-
-              console.log(response);
-              this.dialogRef.close();
-            },
-            error: (err) => (this.errorMsg = err),
-          });
+          this.createInDB();
         },
         error: (err) => (this.errorMsg = err),
       });
+    } else {
+      this.errorMsg = 'Please fill all the fileds';
     }
+  }
+
+  addPlantImage() {
+    this.isLoading = true;
+    this.submitted = true;
+    const file: any = this.plantForm.controls['image'];
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.dashboardService.uploadImage(formData);
+  }
+
+  createInDB() {
+    this.dashboardService.createInDB(this.plantForm.value).subscribe({
+      next: (response: any) => {
+        this.isLoading = false;
+        this.dashboardService.createInStore(response.plant);
+        this.dialogRef.close();
+      },
+      error: (err) => (this.errorMsg = err),
+    });
   }
 }

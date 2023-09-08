@@ -1,8 +1,12 @@
-import { IPlant } from 'src/app/interfaces and enums/plant';
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from './dashboard.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateNewPlantComponent } from './create-new-plant/create-new-plant.component';
+import { DashboardService } from './services/dashboard.service';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { IPlant } from '../interfaces and enums/plant';
+import { IPlantsData } from '../interfaces and enums/plants-data';
+import * as fromPlants from '../store/index';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,30 +14,36 @@ import { CreateNewPlantComponent } from './create-new-plant/create-new-plant.com
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  plants! : IPlant[];
+  plants$!: Observable<IPlant[]>;
+  isLoading$!: Observable<boolean>;
   userName = '';
-  plantsCount = 0;
+
   constructor(
-    private dashboardService: DashboardService,
-    public dialog: MatDialog
+    public dashboardService: DashboardService,
+    public dialog: MatDialog,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.dashboardService.getAllPlants().subscribe((data: any) => {
-      console.log(data);
+    this.dashboardService.getAllPlants().subscribe((data: IPlantsData) => {
+      this.dashboardService.plants = data.plants;
       this.userName = data.user;
-      this.plants = data.plants;
-      this.plantsCount = data.count;
+      this.initDispatch();
+      this.initSubscriptions();
     });
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CreateNewPlantComponent, {
-      data: { name: this.userName },
-    });
+    const dialogRef = this.dialog.open(CreateNewPlantComponent);
+    dialogRef.afterClosed();
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+  private initDispatch(): void {
+    this.store.dispatch(fromPlants.getPlants());
+  }
+
+  private initSubscriptions(): void {
+    this.plants$ = this.store.pipe(select(fromPlants.selectPlants));
+    this.isLoading$ = this.store.pipe(select(fromPlants.selectPlantsIsLoading));
   }
 }

@@ -13,7 +13,7 @@
 
     .logo {
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       color: $dark-blue-title;
       margin-bottom: 50px;
       letter-spacing: 1px;
@@ -86,7 +86,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #d6edfb;
+    background-color: #c9dcbc;
+
+    &.blue {
+      background-color: #d6edfb;
+    }
 
     img {
       width: 60%;

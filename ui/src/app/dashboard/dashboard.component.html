@@ -1,18 +1,30 @@
 <top-navigator></top-navigator>
-<div class="dasboard-container">
-  <br />
-  <div class="top-title">
-    <h3 class="page-title">hello {{ userName }}, Your plants log:</h3>
-    <button class="add-plant" (click)="openDialog()"> <mat-icon class="icons" fontIcon="add"></mat-icon>Add New Plant</button>
-  </div>
-  <br />
-  <div *ngIf="plantsCount > 0; else noPlants" class="plants-container">
-    <div class="plants" *ngFor="let plant of plants">
-      <plant-card [plant]="plant"> </plant-card>
+<ng-container
+  *ngIf="{
+    plants: plants$ | async,
+    isLoading: isLoading$ | async
+  } as data"
+>
+  <div *ngIf="data.plants && !data.isLoading" class="dasboard-container">
+    <br />
+    <div class="top-title">
+      <h3 class="page-title">hello {{ userName }}, Your plants logs:</h3>
+      <button class="add-plant" (click)="openDialog()">
+        <mat-icon class="icons" fontIcon="add"></mat-icon>Add New Plant
+      </button>
     </div>
+    <br />
+    <div *ngIf="data.plants.length > 0; else noPlants" class="plants-container">
+      <div class="plants" *ngFor="let plant of data.plants">
+        <plant-card [plant]="plant"> </plant-card>
+      </div>
+    </div>
+    <ng-template #noPlants>
+      <p>You haven't added any plant yet, to add click here</p>
+      <button class="add-plant" (click)="openDialog()">Add New Plant</button>
+    </ng-template>
   </div>
-  <ng-template #noPlants>
-    <p>You haven't added any plant yet, to add click here</p>
-    <button class="add-plant" (click)="openDialog()">Add New Plant</button>
-  </ng-template>
-</div>
+  <div *ngIf="data.isLoading" class="loading-icon">
+    <loading-icon></loading-icon>
+  </div>
+</ng-container>

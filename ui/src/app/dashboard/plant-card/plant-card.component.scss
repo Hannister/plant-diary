@@ -5,6 +5,43 @@
   margin-right: 25px;
   margin-bottom: 25px;
 
+  .mdc-card__media {
+    height: 320px;
+    object-fit: cover;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    background-color: white;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin: 8px;
+
+    ::ng-deep .mat-mdc-button-touch-target {
+      height: 32px !important;
+      width: 32px !important;
+    }
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+      height: 32px;
+      width: 32px;
+      &:hover {
+        background-color: $light-orange;
+      }
+    }
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+      padding: 0;
+    }
+    .menu-icons {
+      margin-top: 6px;
+      font-size: 20px;
+    }
+  }
+
   .mat-mdc-card-content {
     min-height: 122px;
   }

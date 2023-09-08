@@ -129,12 +129,12 @@
         <div *ngIf="f['image'].errors['required']">Plant image is required</div>
       </div>
     </div>
-    <div class="invalid-feedback" *ngIf="!isImage">
-      Please upload only image files.
+    <div class="invalid-feedback" *ngIf="isImage">
+      {{ isImage }}
     </div>
   </form>
 
-  <div class="image-preview" *ngIf="uploadedImage">
+  <div  class="image-preview" *ngIf="uploadedImage">
     <p>Preview selected image:</p>
     <img class="selected-image" [src]="uploadedImage" alt="Uploaded Image" />
     <a (click)="clearImage(); fileUpload.value = ''"
