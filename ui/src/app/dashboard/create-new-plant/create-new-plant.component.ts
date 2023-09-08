@@ -80,7 +80,6 @@ export class CreateNewPlantComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    console.log(file);
     if (file && file.type.startsWith('image/') && file.size <= 2000000) {
       this.uploadedObj = event.target.files[0];
       const reader = new FileReader();
